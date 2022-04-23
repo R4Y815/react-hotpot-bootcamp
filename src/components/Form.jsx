@@ -10,6 +10,7 @@ export default function Form({
       <ItemForm items={items} setItems={setItems} />
       <br />
       <PersonForm persons={persons} setPersons={setPersons} />
+      <br />
     </>
   );
 }
