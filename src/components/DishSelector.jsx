@@ -3,18 +3,23 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function DishSelector({ items, dishIdSelected, setDishIdSelected }) {
+export default function DishSelector({
+  items, dishIdSelected, setDishIdSelected, dropDownItems,
+}) {
   return (
     <div className="container border border-info">
       <div className="row d-flex justify-content-around">
         <div className="col-12">
           <Form.Select value={dishIdSelected} onChange={(e) => setDishIdSelected(e.target.value)}>
-            {items.map((item) => {
+            {dropDownItems.map((item) => {
               const { name, id, price } = item;
               return (
-                <option value={id}>
-                  {name}
-                  {'         '}
+                <option value={id} key={uuidv4()}>
+                  ===
+                  {' '}
+                  {name.toUpperCase()}
+                  -----------
+                  $
                   {price}
                 </option>
               );

@@ -10,40 +10,62 @@ import EaterSelector from './EaterSelector.jsx';
 // persons who ate this item
 
 export default function ItemList({
-  items, setItems, persons, setPersons,
+  items, setItems, persons, setPersons, dropDownPersons, setDropDownPersons, dropDownItems, setDropDownItems, origDropDownPax,
 }) {
-  const [dishIdSelected, setDishIdSelected] = useState(''); // returns ID of item
-  const selectedDish = items.find((item) => item.id === dishIdSelected);
-  const [eaters, setEaters] = useState(selectedDish.consumedBy); // Arr of persons' names.
+  const [dishIdSelected, setDishIdSelected] = useState(''); // returns ID of item (in string)
+  function retrieveSelectedDish(id) {
+    const itemsImage = [...items];
+    const dishObj = itemsImage.find((item) => item.id === id);
+    return dishObj;
+  }
+
+  const [eaters, setEaters] = useState([]); // Arr of persons' names.
 
   // compile list of persons' names from persons
   const personsNames = [];
   persons.forEach((person) => {
-    person.name.push(personsNames);
+    personsNames.push(person.name);
   });
+  console.log('personsNames =', personsNames);
 
   function confirmEaterList() {
     // locate item from items
-    const indx = items.findIndex((item) => item.id === dishIdSelected);
+    const positionIndx = items.findIndex((item) => item.id === Number(dishIdSelected));
+    console.log('positionIndx =', positionIndx);
+
+    const selectedDish = retrieveSelectedDish(Number(dishIdSelected));
+    console.log('selectedDish =', selectedDish);
+
     // add eaters List to itemObject
-    eaters.forEach((eater) => {
-      items[indx].consumedBy.push(eater);
+    const newItems = [...items];
+    console.log('newItems[positionIndx] =', newItems[positionIndx]);
+    const eatersImage = [...eaters];
+    eatersImage.forEach((eater) => {
+      newItems[positionIndx].consumedBy.push(eater);
     });
-    const newItems = Array.from(items);
     setItems(newItems);
+    console.log('items after adding Eaters=', items);
+
+    // Expunge Shared Dish from dropdown
+    const newDropDwnItems = dropDownItems.filter((item) => item.id !== Number(dishIdSelected));
+    setDropDownItems(newDropDwnItems);
   }
 
   return (
     <>
-      <h3>Item List</h3>
+      {persons.length > 1
+      && (
       <div>
-        <DishSelector items={items} dishIdSelected={dishIdSelected} setDishIdSelected={setDishIdSelected} />
+        <h3>Item List</h3>
+        <div>
+          <DishSelector items={items} dishIdSelected={dishIdSelected} setDishIdSelected={setDishIdSelected} dropDownItems={dropDownItems} />
+        </div>
+        <br />
+        <div>
+          <EaterSelector persons={persons} personsNames={personsNames} eaters={eaters} setEaters={setEaters} confirmEaterList={confirmEaterList} items={items} dishIdSelected={dishIdSelected} dropDownPersons={dropDownPersons} setDropDownPersons={setDropDownPersons} origDropDownPax={origDropDownPax} />
+        </div>
       </div>
-      <br />
-      <div>
-        <EaterSelector persons={personsNames} eaters={eaters} setEaters={setEaters} confirmEaterList={confirmEaterList} items={items} dishIdSelected={dishIdSelected} />
-      </div>
-
+      )}
     </>
   );
 }
