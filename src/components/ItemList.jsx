@@ -10,7 +10,7 @@ import EaterSelector from './EaterSelector.jsx';
 // persons who ate this item
 
 export default function ItemList({
-  items, setItems, persons, setPersons, dropDownPersons, setDropDownPersons, dropDownItems, setDropDownItems, origDropDownPax,
+  items, setItems, persons, dropDownPersons, setDropDownPersons, dropDownItems, setDropDownItems, origDropDownPax,
 }) {
   const [dishIdSelected, setDishIdSelected] = useState(''); // returns ID of item (in string)
   function retrieveSelectedDish(id) {
@@ -19,14 +19,7 @@ export default function ItemList({
     return dishObj;
   }
 
-  const [eaters, setEaters] = useState([]); // Arr of persons' names.
-
-  // compile list of persons' names from persons
-  const personsNames = [];
-  persons.forEach((person) => {
-    personsNames.push(person.name);
-  });
-  console.log('personsNames =', personsNames);
+  const [eaters, setEaters] = useState([]);
 
   function confirmEaterList() {
     // locate item from items
@@ -53,8 +46,6 @@ export default function ItemList({
 
   return (
     <>
-      {persons.length > 1
-      && (
       <div>
         <h3>Item List</h3>
         <div>
@@ -62,10 +53,9 @@ export default function ItemList({
         </div>
         <br />
         <div>
-          <EaterSelector persons={persons} personsNames={personsNames} eaters={eaters} setEaters={setEaters} confirmEaterList={confirmEaterList} items={items} dishIdSelected={dishIdSelected} dropDownPersons={dropDownPersons} setDropDownPersons={setDropDownPersons} origDropDownPax={origDropDownPax} />
+          <EaterSelector persons={persons} eaters={eaters} setEaters={setEaters} confirmEaterList={confirmEaterList} items={items} dishIdSelected={dishIdSelected} dropDownPersons={dropDownPersons} setDropDownPersons={setDropDownPersons} origDropDownPax={origDropDownPax} />
         </div>
       </div>
-      )}
     </>
   );
 }

@@ -4,22 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default function EaterSelector({
   items, dishIdSelected,
-  persons, personsNames, eaters, setEaters, confirmEaterList, dropDownPersons, setDropDownPersons, origDropDownPax,
+  persons, eaters, setEaters, confirmEaterList, dropDownPersons, setDropDownPersons, origDropDownPax,
 }) {
-  const [val, setVal] = useState();
-
-  // RESPONSIVE DATA FOR DROPDOWN LIST
-  /*   function updateDropDownList() {
-  // return reactive list for dropdown menu of names
-  // First retrieve names from dishIdSelected
-    const dishObj = retrieveSelectedDish(dishIdSelected);
-    const consumedBy = Array.from(dishObj.consumedBy);
-    // Find difference between consumedBy of the dish and persons stateVar
-    // ****SHOULD personsNames be made into a statevariable?*****
-    const diff = personsNames.filter((x) => !consumedBy.includes(x));
-    // return the difference. This should be displayed as the dropdown Names
-    return diff;
-  } */
+  const [val, setVal] = useState(); // for person drop down menu input
 
   // Add person as Eater to Item Obj
   function addToEatersList() {
@@ -55,15 +42,14 @@ export default function EaterSelector({
   return (
     <>
       <div className="container border border-success py-3">
-        <div className="row d-flex justify-content-around">
-          <div className="col-6">
+        <div className="row d-flex justify-content-center ">
+          <div className="col-4 px-0">
             <Form.Select value={val} onChange={(e) => setVal(e.target.value)}>
               {dropDownPersons.map((person, index) => {
                 const { name, id } = person;
                 return (
                   <option value={id} key={uuidv4()}>
-                    {index}
-                    )
+                    ==
                     {'  '}
                     {name}
                   </option>
@@ -71,12 +57,22 @@ export default function EaterSelector({
               })}
             </Form.Select>
           </div>
-          <div className="col-3">
+          <div className="col-3 px-0">
             <button
               type="button"
               onClick={addToEatersList}
+              className="fs-5"
             >
               Add Eater
+            </button>
+          </div>
+          <div className="col-2 px-0">
+            <button
+              type="button"
+              onClick={submitEatersList}
+              className="fs-5"
+            >
+              Confirm
             </button>
           </div>
         </div>
@@ -92,12 +88,6 @@ export default function EaterSelector({
               <div className="row d-flex justify-content-center">
                 <div className="col-auto text-left">
                   {eatersDisp}
-                </div>
-              </div>
-              <br />
-              <div className="row d-flex justify-content-center">
-                <div className="col-auto">
-                  <button type="button" onClick={submitEatersList}> Confirm  </button>
                 </div>
               </div>
             </div>

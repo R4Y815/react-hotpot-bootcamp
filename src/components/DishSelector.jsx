@@ -8,8 +8,8 @@ export default function DishSelector({
 }) {
   return (
     <div className="container border border-info">
-      <div className="row d-flex justify-content-around">
-        <div className="col-12">
+      <div className="row d-flex justify-content-start">
+        <div className="col-8 d-flex justify-content-start">
           <Form.Select value={dishIdSelected} onChange={(e) => setDishIdSelected(e.target.value)}>
             {dropDownItems.map((item) => {
               const { name, id, price } = item;

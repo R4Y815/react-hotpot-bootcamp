@@ -8,7 +8,7 @@ export default function Form({
 }) {
   return (
     <>
-      <ItemForm items={items} setItems={setItems} dropDownItems={dropDownItems} />
+      <ItemForm items={items} setItems={setItems} dropDownItems={dropDownItems} setDropDownItems={setDropDownItems} />
       <br />
       <PersonForm persons={persons} setPersons={setPersons} dropDownPersons={dropDownPersons} setDropDownPersons={setDropDownPersons} />
       <br />

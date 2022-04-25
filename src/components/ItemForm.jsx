@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 let itemId = 1;
 export default function ItemForm({
-  items, setItems, dropDownItems,
+  items, setItems, dropDownItems, setDropDownItems,
 }) {
   // Ref id the inputs to value retrieval
   const itemNameInput = useRef();
@@ -56,7 +56,7 @@ export default function ItemForm({
 /*                       onChange={setTwoNumberDecimal} */
                     min="0"
                     max="1000"
-                    step="0.05"
+                    step="1"
                   />
                 </div>
               </div>

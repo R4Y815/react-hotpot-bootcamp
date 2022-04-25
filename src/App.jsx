@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Form from './components/Form.jsx';
 import ItemList from './components/ItemList.jsx';
+import Bill from './components/Bill.jsx';
 
 export default function App() {
   // ALL STATES needed in this App
@@ -16,13 +17,11 @@ export default function App() {
   const [persons, setPersons] = useState([]); // track input of person
   const zeroPerson = {
     id: 0,
-    name: 'PLEASE CLICK TO SELECT EATER',
+    name: 'CLICK TO SELECT EATER',
     personalBill: 0,
   };
   const origDropDownPax = [zeroPerson, ...persons];
   const [dropDownPersons, setDropDownPersons] = useState(origDropDownPax);
-  const [portionBill, setPortionBill] = useState(0);
-  const [totalBill, setTotalBill] = useState(0); // tracks total bill
 
   return (
     <div>
@@ -30,13 +29,12 @@ export default function App() {
         <Form items={items} setItems={setItems} persons={persons} setPersons={setPersons} dropDownPersons={dropDownPersons} setDropDownPersons={setDropDownPersons} dropDownItems={dropDownItems} setDropDownItems={setDropDownItems} />
       </>
       <>
-        <ItemList items={items} setItems={setItems} persons={persons} setPersons={setPersons} dropDownPersons={dropDownPersons} setDropDownPersons={setDropDownPersons} dropDownItems={dropDownItems} setDropDownItems={setDropDownItems} origDropDownPax={origDropDownPax} />
+        <ItemList items={items} setItems={setItems} persons={persons} dropDownPersons={dropDownPersons} setDropDownPersons={setDropDownPersons} dropDownItems={dropDownItems} setDropDownItems={setDropDownItems} origDropDownPax={origDropDownPax} />
+
       </>
-
-      {/*       <>
-        <Bill />
-      </> */}
-
+      <>
+        <Bill items={items} setItems={setItems} persons={persons} setPersons={setPersons} />
+      </>
     </div>
   );
 }
