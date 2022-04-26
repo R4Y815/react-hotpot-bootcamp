@@ -12,7 +12,7 @@ export default function PersonForm({
     const personObj = {
       id: personId,
       name: personNameInput.current.value,
-      personalBill: 0,
+      amount: 0,
     };
     personId += 1;
     // add new PersonObj to 'persons' stateVar

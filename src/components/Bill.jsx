@@ -2,9 +2,10 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 export default function Bill({
-  items, persons, setPersons,
+  items, persons, setPersons, billName,
 }) {
   // make new stateVar for this Functional Component
   const personsImage = [...persons];
@@ -22,7 +23,7 @@ export default function Bill({
     console.log('personsArr =', personsArr);
     for (let j = 0; j < item.consumedBy.length; j += 1) {
       const eaterIndexInPersons = personsArr.findIndex((guest) => guest.name === item.consumedBy[j]);
-      personsArr[eaterIndexInPersons].personalBill += owedAmt;
+      personsArr[eaterIndexInPersons].amount += owedAmt;
     }
   }
 
@@ -46,7 +47,7 @@ export default function Bill({
           <h4>
             $
             {'  '}
-            {parseFloat(person.personalBill).toFixed(2)}
+            {parseFloat(person.amount).toFixed(2)}
 
           </h4>
         </div>
@@ -56,12 +57,29 @@ export default function Bill({
 
   let totalFromPersons = 0;
   for (let i = 0; i < personsImage.length; i += 1) {
-    totalFromPersons += personsImage[i].personalBill;
+    totalFromPersons += personsImage[i].amount;
   }
 
   let totalPriceItems = 0;
   for (let j = 0; j < itemsImage.length; j += 1) {
     totalPriceItems += itemsImage[j].price;
+  }
+
+  // FN: to Save Bill
+  function saveBill() {
+    // pool all the info required into an requestBody object;
+    const requestBody = {};
+    requestBody.billDetails = {
+      name: billName,
+      total: totalPriceItems,
+    };
+    personsImage.forEach((image) => {
+      delete image.id;
+    });
+    requestBody.friendsDetails = personsImage;
+    axios.post('/create', requestBody).then((response) => {
+      console.log('added to Bills Table and Friends Table =', response);
+    });
   }
 
   return (
@@ -119,19 +137,13 @@ export default function Bill({
             <button
               type="button"
               className="fs-4"
+              onClick={saveBill}
             >
               Save Bill
             </button>
           </div>
         </div>
       </div>
-      {/* <div className="container">
-        <div className="row">
-          <div className="col">
-            Template for Grid
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 }

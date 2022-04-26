@@ -1,17 +1,34 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
-  "editor.minimap.enabled": false,
-  "editor.tabSize": 2,
-  "editor.wordWrap": "on",
-  "eslint.format.enable": true,
-  "eslint.lintTask.enable": true,
-  "eslint.migration.2_x": "off"
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[javascript]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"editor.minimap.enabled": false,
+	"editor.tabSize": 2,
+	"editor.wordWrap": "on",
+	"eslint.format.enable": true,
+	"eslint.lintTask.enable": true,
+	"eslint.migration.2_x": "off",
+	"editor.snippetSuggestions": "none",
+	"editor.hover.enabled": false,
+	"editor.suggest.showConstructors": true,
+	"editor.suggest.showEvents": true,
+	"editor.suggest.showFields": true,
+	"editor.suggest.showFolders": true,
+	"editor.suggest.showFunctions": true,
+	"editor.suggest.showIcons": false,
+	"editor.suggest.showInlineDetails": true,
+	"editor.suggest.showInterfaces": false,
+	"editor.suggest.showIssues": true,
+	"editor.suggest.showSnippets": false,
+	"editor.quickSuggestions": {
+		"other": "on",
+		"comments": "off",
+		"strings": "off"
+	} /* added by Ray  */
 }

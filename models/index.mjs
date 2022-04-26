@@ -2,6 +2,9 @@ import { Sequelize } from 'sequelize';
 import url from 'url';
 import allConfig from '../config/config.js';
 
+import initBillModel from './bill.mjs';
+import initFriendModel from './friend.mjs';
+
 const env = process.env.NODE_ENV || 'development';
 
 const config = allConfig[env];
@@ -29,6 +32,13 @@ if (env === 'production') {
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
+
+// add model definitions to db here
+db.Bill = initBillModel(sequelize, Sequelize.DataTypes);
+db.Friends = initFriendModel(sequelize, Sequelize.DataTypes);
+
+db.Friends.belongsTo(db.Bill);
+db.Bill.hasMany(db.Friends);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

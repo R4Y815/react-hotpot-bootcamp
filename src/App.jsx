@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Form from './components/Form.jsx';
 import ItemList from './components/ItemList.jsx';
 import Bill from './components/Bill.jsx';
@@ -18,13 +18,43 @@ export default function App() {
   const zeroPerson = {
     id: 0,
     name: 'CLICK TO SELECT EATER',
-    personalBill: 0,
+    amount: 0,
   };
   const origDropDownPax = [zeroPerson, ...persons];
   const [dropDownPersons, setDropDownPersons] = useState(origDropDownPax);
+  const [billName, setBillName] = useState('');
+
+  // Bill Name Input Bar
+  const billNameInput = useRef();
+  function addBillName() {
+    setBillName(billNameInput.current.value);
+    billNameInput.current.value = null;
+  }
 
   return (
     <div>
+      <>
+        <div className="container border border-primary py-3">
+          <div className="row d-flex justify-content-center">
+            <div className="col-auto px-0">
+              <input
+                ref={billNameInput}
+                type="text"
+                placeholder="Name of Bill"
+                size="20"
+              />
+            </div>
+            <div className="col-auto text-left px-0">
+              <button
+                type="button"
+                onClick={addBillName}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </>
       <>
         <Form items={items} setItems={setItems} persons={persons} setPersons={setPersons} dropDownPersons={dropDownPersons} setDropDownPersons={setDropDownPersons} dropDownItems={dropDownItems} setDropDownItems={setDropDownItems} />
       </>
@@ -33,7 +63,7 @@ export default function App() {
 
       </>
       <>
-        <Bill items={items} setItems={setItems} persons={persons} setPersons={setPersons} />
+        <Bill items={items} setItems={setItems} persons={persons} setPersons={setPersons} billName={billName} />
       </>
     </div>
   );
