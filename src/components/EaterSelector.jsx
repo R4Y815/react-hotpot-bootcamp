@@ -82,7 +82,7 @@ export default function EaterSelector({
             <div className="col-12 text-center">
               <div className="row d-flex justify-content-center">
                 <div className="col-auto">
-                  <h3>List Persons who ate (this Dish:)</h3>
+                  <h3>List Persons who ordered this Dish</h3>
                 </div>
               </div>
               <div className="row d-flex justify-content-center">

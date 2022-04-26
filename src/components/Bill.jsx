@@ -98,11 +98,11 @@ export default function Bill({
         </div>
         <br />
         { display > 1
-      && (
-      <div>
-        {PersonsListDisplay}
-      </div>
-      )}
+        && (
+        <div>
+          {PersonsListDisplay}
+        </div>
+        )}
       </div>
 
       <div className="container border border-info py-3">

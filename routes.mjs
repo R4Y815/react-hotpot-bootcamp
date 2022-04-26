@@ -15,4 +15,7 @@ export default function routes(app) {
 
   // post input values from frontend to store on database
   app.post('/create', BillsController.create);
+
+  // get last insert billId from bills table
+  app.get('/getLastBillId', BillsController.retrieveLastId);
 }

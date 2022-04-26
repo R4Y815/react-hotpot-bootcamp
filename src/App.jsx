@@ -1,11 +1,14 @@
 /* eslint-disable max-len */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 import Form from './components/Form.jsx';
 import ItemList from './components/ItemList.jsx';
 import Bill from './components/Bill.jsx';
 
 export default function App() {
   // ALL STATES needed in this App
+  const [billName, setBillName] = useState('');
+
   const [items, setItems] = useState([]); // tracks dishes ordered
   const zeroItem = {
     id: 0,
@@ -22,7 +25,6 @@ export default function App() {
   };
   const origDropDownPax = [zeroPerson, ...persons];
   const [dropDownPersons, setDropDownPersons] = useState(origDropDownPax);
-  const [billName, setBillName] = useState('');
 
   // Bill Name Input Bar
   const billNameInput = useRef();

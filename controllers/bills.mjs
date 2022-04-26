@@ -25,8 +25,33 @@ export default function initBillsController(db) {
     }
   };
 
+  const retrieveLastId = async (request, response) => {
+    try {
+      // find all Bill Ids and return the result in asc order. (DESC) for descending
+      const allPreviousBillIds = await db.Bill.findAll(
+        {
+          attributes: [
+            'id',
+          ],
+          order: [['id', 'ASC']],
+        },
+      );
+      /*       if (allPreviousBillIds !== []) {
+        response.send({ allPreviousBillIds });
+      } else {
+        allPreviousBillIds.push(12);
+        response.send({ allPreviousBillIds });
+      } */
+      response.send({ allPreviousBillIds });
+      console.log('allPreviousBillIds =', allPreviousBillIds);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     index,
     create,
+    retrieveLastId,
   };
 }

@@ -53,7 +53,7 @@ export default function ItemList({
         </div>
         <br />
         <div>
-          <EaterSelector persons={persons} eaters={eaters} setEaters={setEaters} confirmEaterList={confirmEaterList} items={items} dishIdSelected={dishIdSelected} dropDownPersons={dropDownPersons} setDropDownPersons={setDropDownPersons} origDropDownPax={origDropDownPax} />
+          <EaterSelector persons={persons} eaters={eaters} setEaters={setEaters} confirmEaterList={confirmEaterList} items={items} dishIdSelected={dishIdSelected} dropDownPersons={dropDownPersons} setDropDownPersons={setDropDownPersons} origDropDownPax={origDropDownPax} retrieveSelectedDish={retrieveSelectedDish} />
         </div>
       </div>
     </>
