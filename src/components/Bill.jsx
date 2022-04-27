@@ -1,19 +1,14 @@
 /* eslint-disable react/jsx-curly-brace-presence */
 /* eslint-disable max-len */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
 export default function Bill({
   items, persons, setPersons, billName,
 }) {
-  // make new stateVar for this Functional Component
-  const personsImage = [...persons];
-  // clone itemsStateVar Array
-  const itemsImage = [...items];
-
   const [display, setDisplay] = useState(0);
-
+  const [diff, setDiff] = useState(-1);
   // Add Owed amount from each dish to persons
   function addOwedAmtPerDish(item, personsArr) {
     const sharePerDish = (dish) => (dish.price / dish.consumedBy.length);
@@ -28,6 +23,10 @@ export default function Bill({
   }
 
   function runSplitBill() {
+    // clone the stateVar for this Functional Component
+    const personsImage = [...persons];
+    // clone itemsStateVar Array
+    const itemsImage = [...items];
     for (let i = 0; i < itemsImage.length; i += 1) {
       addOwedAmtPerDish(itemsImage[i], personsImage);
     }
@@ -37,7 +36,7 @@ export default function Bill({
     setDisplay(2);
   }
 
-  const PersonsListDisplay = personsImage.map((person) => (
+  const PersonsListDisplay = persons.map((person) => (
     <div className="container" key={uuidv4()}>
       <div className="row d-flex justify-content-center">
         <div className="col-4 d-flex justify-content-center">
@@ -56,13 +55,13 @@ export default function Bill({
   ));
 
   let totalFromPersons = 0;
-  for (let i = 0; i < personsImage.length; i += 1) {
-    totalFromPersons += personsImage[i].amount;
+  for (let i = 0; i < persons.length; i += 1) {
+    totalFromPersons += persons[i].amount;
   }
 
   let totalPriceItems = 0;
-  for (let j = 0; j < itemsImage.length; j += 1) {
-    totalPriceItems += itemsImage[j].price;
+  for (let j = 0; j < items.length; j += 1) {
+    totalPriceItems += items[j].price;
   }
 
   // FN: to Save Bill
@@ -73,13 +72,16 @@ export default function Bill({
       name: billName,
       total: totalPriceItems,
     };
-    personsImage.forEach((image) => {
-      delete image.id;
+    const personsClone = [...persons];
+    personsClone.forEach((clone) => {
+      delete clone.id;
     });
-    requestBody.friendsDetails = personsImage;
-    axios.post('/create', requestBody).then((response) => {
-      console.log('added to Bills Table and Friends Table =', response);
-    });
+    requestBody.friendsDetails = persons;
+    if (totalFromPersons === totalPriceItems) {
+      axios.post('/create', requestBody).then((response) => {
+        console.log('added to Bills Table and Friends Table =', response);
+      });
+    }
   }
 
   return (

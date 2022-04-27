@@ -42,6 +42,7 @@ export default function PersonForm({
       billId: currentBillId,
     };
     personId += 1;
+    console.log('Person added =', personObj);
     // add new PersonObj to 'persons' stateVar
     const newPersonsState = [...persons, personObj];
     setPersons(newPersonsState);
